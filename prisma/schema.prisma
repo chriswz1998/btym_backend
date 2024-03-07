@@ -15,3 +15,35 @@ model User {
   email        String @unique
   password     String
 }
+
+model Section {
+  section_id Int    @id @default(autoincrement())
+  name       String
+}
+
+model SubSection {
+  subSection_id Int    @id @default(autoincrement())
+  name          String
+  description   String
+  section_id    Int
+
+  @@map("subSection")
+}
+
+model SubSectionLinks {
+  subSectionLinks_id Int    @id @default(autoincrement())
+  name               String
+  description        String
+  link               String
+  subSection_id      Int
+
+  @@map("subSectionLinks")
+}
+
+model Articles {
+  articles_id        Int    @id @default(autoincrement())
+  html_content       String
+  subSectionLinks_id Int
+
+  @@map("articles")
+}
