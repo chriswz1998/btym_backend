@@ -1,24 +1,24 @@
-# 使用 Node.js 官方镜像作为构建环境
-FROM node:14 as build
+# 使用兼容 @prisma/client 要求的 Node.js 版本
+FROM node:latest as build
 
 # 设置工作目录
 WORKDIR /usr/src/app
 
-# 复制 package.json 和 package-lock.json（或 yarn.lock）
-COPY package*.json ./
+# 复制 package.json 和 yarn.lock 文件
+COPY package.json ./
 COPY yarn.lock ./
 
-# 安装项目依赖
+# 安装依赖
 RUN yarn install
 
-# 复制项目文件和文件夹到工作目录
+# 复制项目文件
 COPY . .
 
 # 构建应用
-RUN yarn run build
+RUN yarn build
 
-# 使用 Node.js 镜像运行应用
-FROM node:14
+# 运行阶段，也使用兼容的 Node.js 版本
+FROM node:latest
 
 WORKDIR /usr/src/app
 
@@ -26,7 +26,6 @@ COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package.json ./package.json
 
-# 应用运行在 3000 端口
-EXPOSE 3000
+EXPOSE 1998
 
 CMD ["node", "dist/main"]
