@@ -1,31 +1,40 @@
-# 使用兼容 @prisma/client 要求的 Node.js 版本
-FROM node:latest as build
+FROM node:18-alpine AS builder
 
-# 设置工作目录
-WORKDIR /usr/src/app
+# 创建应用目录
+WORKDIR /app
 
 # 复制 package.json 和 yarn.lock 文件
 COPY package.json ./
 COPY yarn.lock ./
 
-# 安装依赖
-RUN yarn install
+# 如果您使用 Prisma，并且在构建过程中需要执行数据库迁移
+COPY prisma ./prisma/
+
+# 安装应用依赖
+RUN yarn install --frozen-lockfile
 
 # 复制项目文件
 COPY . .
 
 # 构建应用
-RUN yarn build
+RUN yarn run build
 
-# 运行阶段，也使用兼容的 Node.js 版本
-FROM node:latest
+# 生产环境
+FROM node:18-alpine
 
-WORKDIR /usr/src/app
+# 设置工作目录
+WORKDIR /app
 
-COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/package.json ./package.json
+# 复制构建产物和 node_modules 到生产镜像
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/dist ./dist
 
-EXPOSE 1998
+# 暴露应用的端口
+EXPOSE 3100
 
-CMD ["node", "dist/main"]
+# 定义环境变量，如果有的话
+# ENV ...
+
+# 启动应用
+CMD [ "yarn", "start:prod" ]
