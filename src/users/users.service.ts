@@ -18,17 +18,10 @@ export class UsersService {
   }
 
   async findUser(email: string): Promise<CreateUserDto | undefined> {
-    const user = await this.prisma.user.findUnique({ where: { email } })
-    return user
-  }
+    console.log(email)
+    const user = this.prisma.user.findUnique({ where: { email } })
+    console.log(user)
 
-  // 新增验证用户方法
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.prisma.user.findUnique({ where: { email } })
-    if (user && (await bcrypt.compare(pass, user.password))) {
-      const { password, ...result } = user
-      return result
-    }
-    return null
+    return user
   }
 }
