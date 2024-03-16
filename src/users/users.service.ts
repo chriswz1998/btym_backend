@@ -18,10 +18,6 @@ export class UsersService {
   }
 
   async findUser(email: string): Promise<CreateUserDto | undefined> {
-    console.log(email)
-    const user = this.prisma.user.findUnique({ where: { email } })
-    console.log(user)
-
-    return user
+    return this.prisma.user.findUnique({ where: { email } })
   }
 }

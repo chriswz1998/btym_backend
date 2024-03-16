@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module'
 import { NavListModule } from './nav-list/nav-list.module'
 import { ConfigModule } from '@nestjs/config'
 import { UploadModule } from './upload/upload.module'
+import { FirstPageModule } from './firstPage/firstpage.module'
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { UploadModule } from './upload/upload.module'
     UsersModule,
     AuthModule,
     NavListModule,
-    UploadModule
+    UploadModule,
+    FirstPageModule
   ],
   controllers: [AppController],
   providers: [AppService],

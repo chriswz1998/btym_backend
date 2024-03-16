@@ -47,3 +47,19 @@ model Articles {
 
   @@map("articles")
 }
+
+model Banner {
+  id               Int          @id @default(autoincrement())
+  backgroundImgUrl String
+  bannerData       BannerData[]
+}
+
+model BannerData {
+  id          Int    @id @default(autoincrement())
+  title       String
+  subTitle    String
+  description String
+  link        String
+  bannerId    Int
+  banner      Banner @relation(fields: [bannerId], references: [id])
+}
