@@ -5,22 +5,30 @@ import { PrismaService } from '../../prisma/prisma.service'
 export class FirstPageService {
   constructor(private prisma: PrismaService) {}
 
-  async setBannerDatas(banner: Banner) {
-    const { backgroundImgUrl, bannerData } = banner
-    const createdBanner = await this.prisma.banner.create({
-      data: {
-        backgroundImgUrl: backgroundImgUrl,
-        bannerData: {
-          create: bannerData.map((data) => ({
-            title: data.title,
-            subTitle: data.subTitle,
-            description: data.description,
-            link: data.link
-          }))
-        }
+  async setBannerDatas(banners: SetBanner) {
+    try {
+      const { backgroundImgUrl, bannerData } = banners
+      if (backgroundImgUrl) {
+        await this.prisma.banner.update({
+          where: { id: 1 },
+          data: {
+            backgroundImgUrl
+          }
+        })
       }
-    })
-    return 'OK'
+      await this.prisma.bannerData.update({
+        where: { id: parseInt(bannerData.id, 10) },
+        data: {
+          title: bannerData.title,
+          subTitle: bannerData.subTitle,
+          description: bannerData.description,
+          link: bannerData.link
+        }
+      })
+      return { message: 'update success.', code: 200 }
+    } catch (e) {
+      return { message: 'sql error' }
+    }
   }
 
   async getBannerDatas() {

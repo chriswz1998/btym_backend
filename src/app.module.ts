@@ -7,6 +7,7 @@ import { NavListModule } from './nav-list/nav-list.module'
 import { ConfigModule } from '@nestjs/config'
 import { UploadModule } from './upload/upload.module'
 import { FirstPageModule } from './firstPage/firstpage.module'
+import { ImageListModule } from './image-list/image-list.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { FirstPageModule } from './firstPage/firstpage.module'
     AuthModule,
     NavListModule,
     UploadModule,
-    FirstPageModule
+    FirstPageModule,
+    ImageListModule
   ],
   controllers: [AppController],
   providers: [AppService],

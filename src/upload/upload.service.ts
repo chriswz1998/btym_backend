@@ -2,10 +2,14 @@ import { BlobServiceClient, BlockBlobClient } from '@azure/storage-blob'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { uuid } from 'uuidv4'
+import { ImageListService } from '../image-list/image-list.service'
 
 @Injectable()
 export class FilesAzureService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private imageList: ImageListService
+  ) {}
 
   private containerName: string
 
@@ -30,7 +34,7 @@ export class FilesAzureService {
     const blockBlobClient = await this.getBlobClient(file_name)
     const fileUrl = blockBlobClient.url
     await blockBlobClient.uploadData(file.buffer)
-
+    await this.imageList.setImgUrls(fileUrl)
     return fileUrl
   }
 }

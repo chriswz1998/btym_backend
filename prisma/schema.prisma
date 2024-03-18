@@ -63,3 +63,8 @@ model BannerData {
   bannerId    Int
   banner      Banner @relation(fields: [bannerId], references: [id])
 }
+
+model Images {
+  id  Int    @id @default(autoincrement())
+  url String
+}

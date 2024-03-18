@@ -5,7 +5,6 @@ import { PrismaService } from '../../prisma/prisma.service'
 
 @Module({
   controllers: [NavListController],
-  providers: [NavListService, PrismaService],
-  exports: [NavListService]
+  providers: [NavListService, PrismaService]
 })
 export class NavListModule {}

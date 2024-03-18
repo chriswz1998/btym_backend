@@ -6,7 +6,9 @@ import { AuthGuard } from '../auth/auth.guard'
 export class FirstPageController {
   constructor(private firstPageService: FirstPageService) {}
 
-  @UseGuards(AuthGuard) @Post('banner') setBannerData(@Body() banners: Banner) {
+  @UseGuards(AuthGuard) @Post('banner') setBannerData(
+    @Body() banners: SetBanner
+  ) {
     return this.firstPageService.setBannerDatas(banners)
   }
 
