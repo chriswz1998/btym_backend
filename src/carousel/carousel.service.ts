@@ -19,13 +19,11 @@ export class CarouselService {
   }
 
   async getCarousels() {
-    const data = this.prisma.carousel.findMany()
-    return data
+    return this.prisma.carousel.findMany()
   }
 
-  async putCarousels(res: CarouselDto) {
-    console.log(res)
-    const data = await this.prisma.carousel.update({
+  putCarousels(res: CarouselDto) {
+    return this.prisma.carousel.update({
       where: {
         id: res.id
       },
@@ -35,7 +33,5 @@ export class CarouselService {
         link: res.link
       }
     })
-    console.log(data)
-    return data
   }
 }

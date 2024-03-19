@@ -7,8 +7,8 @@ import { NavListModule } from './nav-list/nav-list.module'
 import { ConfigModule } from '@nestjs/config'
 import { UploadModule } from './upload/upload.module'
 import { FirstPageModule } from './firstPage/firstpage.module'
-import { ImageListModule } from './image-list/image-list.module';
-import { CarouselModule } from './carousel/carousel.module';
+import { ImageListModule } from './image-list/image-list.module'
+import { CarouselModule } from './carousel/carousel.module'
 
 @Module({
   imports: [
