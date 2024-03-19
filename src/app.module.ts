@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config'
 import { UploadModule } from './upload/upload.module'
 import { FirstPageModule } from './firstPage/firstpage.module'
 import { ImageListModule } from './image-list/image-list.module';
+import { CarouselModule } from './carousel/carousel.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { ImageListModule } from './image-list/image-list.module';
     NavListModule,
     UploadModule,
     FirstPageModule,
-    ImageListModule
+    ImageListModule,
+    CarouselModule
   ],
   controllers: [AppController],
   providers: [AppService],

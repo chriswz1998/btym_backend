@@ -68,3 +68,10 @@ model Images {
   id  Int    @id @default(autoincrement())
   url String
 }
+
+model Carousel {
+  id   Int    @id @default(autoincrement())
+  url  String
+  link String
+  text String
+}
