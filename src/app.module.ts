@@ -13,7 +13,10 @@ import { CarouselModule } from './carousel/carousel.module'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath:
+        process.env.NODE_ENV === 'development'
+          ? '.env.development'
+          : '.env.production',
       isGlobal: true
     }),
     UsersModule,

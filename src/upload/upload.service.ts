@@ -17,6 +17,10 @@ export class FilesAzureService {
     const connectionString = this.configService.get(
       'AZURE_STORAGE_CONNECTION_STRING'
     )
+    if (!connectionString) {
+      console.error('Azure Storage connection string is undefined')
+      throw new Error('Azure Storage connection string is not set')
+    }
     return BlobServiceClient.fromConnectionString(connectionString)
   }
 
