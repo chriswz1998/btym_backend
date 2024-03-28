@@ -13,6 +13,19 @@ export class ImageListService {
     })
   }
 
+  async deleteImgUrls(id: number) {
+    const result = await this.prisma.images.delete({
+      where: {
+        id
+      }
+    })
+    if (result.id) {
+      return { code: 200, message: '删除成功' }
+    } else {
+      return { code: 401, message: '删除失败' }
+    }
+  }
+
   getImageUrls() {
     return this.prisma.images.findMany()
   }
