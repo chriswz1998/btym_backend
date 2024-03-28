@@ -34,6 +34,10 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export DATABASE_URL=${{ secrets.DATABASE_URL }}
+            export AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+            export CONTAINER_NAME=${{ secrets.CONTAINER_NAME }}
             docker pull your-docker-registry-username/your-repo-name:latest
             docker-compose -f docker-compose.yml down
             docker-compose -f docker-compose.yml up -d
+      
